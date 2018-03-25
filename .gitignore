@@ -1,0 +1,5 @@
+.DS_Store
+.vscode
+errorShots
+node_modules
+database.sqlite

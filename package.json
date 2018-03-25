@@ -1,0 +1,22 @@
+{
+  "name": "anyproxy-automation-example",
+  "version": "0.0.1",
+  "description": "anyproxy-automation-example",
+  "main": "wdio.conf.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "./node_modules/webdriverio/bin/wdio wdio.conf.js"
+  },
+  "author": "sanlengjingvv",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "anyproxy": "^4.0.4",
+    "sequelize": "^4.31.2",
+    "sqlite3": "^3.1.13",
+    "wdio-mocha-framework": "^0.5.12",
+    "webdriverio": "^4.10.1"
+  }
+}
