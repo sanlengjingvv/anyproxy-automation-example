@@ -1,21 +1,28 @@
 const querystring = require('querystring')
-const { Collect } = require('./database')
+const fs = require('fs')
 
+// 把上报请求保存到文件，方便排错
+let writeJsonToFile = (directory, fileName, data) => {
+    try {
+        fs.statSync(directory);
+    } catch (e) {
+        fs.mkdirSync(directory);
+    }
+    let filePath = `${directory}/${fileName}.txt`
+    fs.writeFileSync(filePath, data.toString())
+}
+
+let collects = []
 let testData = {}
 
 module.exports = {
+    collects: collects,
     testData: testData,
     *beforeSendRequest(requestDetail) {
         if (requestDetail.url.indexOf('https://www.google-analytics.com/collect') === 0) {
             const collect = querystring.parse(requestDetail.requestOptions.path)
-            // 将埋点上报数据存入数据库
-            Collect.sync({ force: false }).then(() => {
-                return Collect.create(collect).then(() => {
-                    return null
-                }).catch(error => {
-                    console.log('[Database] error' + error)
-                })
-            })
+            collects.push(collect)
+            writeJsonToFile('requests', collect.jid, requestDetail.requestOptions.path)
         }
     },
     *beforeSendResponse(requestDetail, responseDetail) {

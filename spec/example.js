@@ -1,6 +1,5 @@
 const assert = require('assert')
-const { Collect } = require('../database')
-let { testData } = require('../rules')
+let { collects, testData } = require('../rules')
 
 describe('TesterHome', function () {
     it('修改数据', function () {
@@ -24,12 +23,8 @@ describe('TesterHome', function () {
 
         browser.pause(3000)
 
-        return Promise.all([
-            // 查询数据库，取出数据后断言
-            Collect.findOne({ where: { dt: expectDt } }).then(collect => {
-                assert.equal(collect.t, expectT)
-            })
-        ])
+        const actualCollects = collects.filter(collect => collect.dt === expectDt)
+        assert.equal(actualCollects[0].t, expectT)
     })
 })
 

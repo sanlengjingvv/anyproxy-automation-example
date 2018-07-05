@@ -2,4 +2,4 @@
 .vscode
 errorShots
 node_modules
-database.sqlite
+requests

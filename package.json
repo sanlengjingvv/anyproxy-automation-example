@@ -14,8 +14,6 @@
   "devDependencies": {},
   "dependencies": {
     "anyproxy": "^4.0.4",
-    "sequelize": "^4.31.2",
-    "sqlite3": "^3.1.13",
     "wdio-mocha-framework": "^0.5.12",
     "webdriverio": "^4.10.1"
   }
