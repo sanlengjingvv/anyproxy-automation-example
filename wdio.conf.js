@@ -11,7 +11,7 @@ const options = {
     },
     throttle: 10000,
     forceProxyHttps: true,
-    silent: true
+    silent: false
 }
 const proxyServer = new AnyProxy.ProxyServer(options)
 proxyServer.on('ready', () => { console.log("anyproxy ready") })
@@ -78,8 +78,8 @@ exports.config = {
         // 5 instances get started at a time.
         {
             platformName: 'iOS',
-            platformVersion: '11.2',
-            udid: 'udid',
+            platformVersion: '12.4.1',
+            udid: '7dd781a09194c257cb4aa1f2d14f92c0406b3e0e',
             deviceName: 'deviceName',
             bundleId: 'com.testerhome.app',
             automationName: 'XCUITest'
