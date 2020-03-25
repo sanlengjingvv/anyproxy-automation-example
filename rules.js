@@ -13,7 +13,13 @@ const writeJsonToFile = (directory, fileName, data) => {
 
 const collects = []
 
-const rewriteRules = {'requests' : {}, 'responses' : {} }
+const rewriteRules = {
+    requests: {},
+    responses: {},
+    addRule: function (type, rule) {
+        Object.assign(this[type], rule)
+    }
+}
 
 module.exports = {
     collects: collects,
@@ -25,6 +31,11 @@ module.exports = {
             const collect = requestDetail.requestData.toString()
             collects.push(collect)
             writeJsonToFile('requests', collect.jid, requestDetail.requestOptions.path)
+            
+            const rewrite = rewriteRules.requests[hostAndPath]
+            const newRequest = (rewrite != '') ? rewrite(requestDetail) : requestDetail
+
+            return newRequest
         }
     },
     *beforeSendResponse(requestDetail, responseDetail) {

@@ -7,11 +7,13 @@ describe('TesterHome', function () {
         const title = '很长很长的标题显示测试' + Date.now()
         rewriteRules.requests = {}
         rewriteRules.responses = {}
-        rewriteRules.responses['testerhome.com/api/v3/topics.json'] = (response) => {
-            response.topics[index].title = title
+        rewriteRules.addRule('responses', {
+            'testerhome.com/api/v3/topics.json': (response) => {
+                response.topics[index].title = title
 
-            return response
-        }
+                return response
+            }
+        })
 
         // Appium 在建立 session 后就会启动 App，这时候 testData 还没被赋值，所以在赋值后重启 App 重新获取话题列表数据
         browser.closeApp()
@@ -28,7 +30,7 @@ describe('TesterHome', function () {
         browser.closeApp()
         rewriteRules.requests = {}
         rewriteRules.responses = {}
-        rewriteRules.requests['ios.bugly.qq.com/rqd/sync'] = ''
+        rewriteRules.addRule('requests', {'ios.bugly.qq.com/rqd/sync': ''})
         browser.launch()
         browser.pause(3000)
 
